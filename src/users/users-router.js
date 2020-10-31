@@ -28,16 +28,14 @@ usersRouter
     const { fullname, username, nickname, password } = req.body
     const newUser = { fullname, username }
 
-    for (const [key, value] of Object.entries(newUser)) {
-      if (value == null) {
+    for (const [key, value] of Object.entries(newUser))
+      if (value == null)
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` }
         })
-      }
-    }
-
+    
     newUser.nickname = nickname;
-    newUser.password = password;
+    newUser.password = password;    
 
     UsersService.insertUser(
       req.app.get('db'),
@@ -91,7 +89,7 @@ usersRouter
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'fullname', 'username', 'password' or 'nickname'`
+          message: `Request body must content either 'fullname', 'username', 'password' or 'nickname'`
         }
       })
 
