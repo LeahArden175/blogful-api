@@ -1,35 +1,37 @@
+const UsersService = {
+  getAllUsers(knex) {
+    return knex.select('*').from('blogful_users')
+  },
 
-const ArticlesService = {
-    getAllArticles(knex) {
-      return knex.select("*").from("blogful_articles");
-    },
-  
-    insertArticle(knex, newArticle) {
-      return knex
-        .insert(newArticle)
-        .into("blogful_articles")
-        .returning("*")
-        .then((rows) => {
-          return rows[0];
-        });
-    },
-  
-    getById(knex, id) {
-      return knex.from("blogful_articles").select("*").where("id", id).first();
-    },
-  
-    deleteArticle(knex, id) {
-        return knex('blogful_articles')
-          .where({ id })
-          .delete()
-    },
-  
-    updateArticle(knex, id, newArticleFields) {
-        return knex('blogful_articles')
-          .where({ id })
-          .update(newArticleFields)
-    },
-  };
-  
-  module.exports = ArticlesService;
-  
+  insertUser(knex, newUser) {
+    return knex
+      .insert(newUser)
+      .into('blogful_users')
+      .returning('*')
+      .then(rows => {
+        return rows[0]
+      })
+  },
+
+  getById(knex, id) {
+    return knex
+      .from('blogful_users')
+      .select('*')
+      .where('id', id)
+      .first()
+  },
+
+  deleteUser(knex, id) {
+    return knex('blogful_users')
+      .where({ id })
+      .delete()
+  },
+
+  updateUser(knex, id, newUserFields) {
+    return knex('blogful_users')
+      .where({ id })
+      .update(newUserFields)
+  },
+}
+
+module.exports = UsersService
