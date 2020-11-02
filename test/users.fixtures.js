@@ -17,7 +17,7 @@ function makeUsersArray() {
             nickname: 'Alexis'
         },
         {
-            id: 4,
+            id: 3,
             date_created: '2029-01-22T16:28:32.615Z',
             fullname: 'Jonathan Rose',
             username: 'Jonnyrose@schitscreek.org',
@@ -25,7 +25,7 @@ function makeUsersArray() {
             nickname: 'Johnny'
         },
         {
-            id: 5,
+            id: 4,
             date_created: '2029-01-22T16:28:32.615Z',
             fullname: 'Moira Rose',
             username: 'moirarose@schitscreek.org',

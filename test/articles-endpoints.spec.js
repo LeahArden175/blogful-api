@@ -8,13 +8,6 @@ const  {makeUsersArray } = require('./users.fixtures')
 
 describe('Articles Endpoints', function() {
   let db
-  const cleanup = () => db.raw(
-    `TRUNCATE
-      blogful_articles,
-      blogful_users,
-      blogful_comments
-    RESTART IDENTITY CASCADE`
-  )
 
   before('make knex instance', () => {
     db = knex({
@@ -26,9 +19,14 @@ describe('Articles Endpoints', function() {
 
   after('disconnect from db', () => db.destroy())
 
-  before('cleanup', () => cleanup())
+  //before('cleanup', () => cleanup())
+  before('clean the table', () => db.raw('TRUNCATE blogful_articles, blogful_users, blogful_comments RESTART IDENTITY CASCADE'))
 
-  afterEach('cleanup', () => cleanup())
+
+  //afterEach('cleanup', () => cleanup())
+  afterEach('cleanup',() => db.raw('TRUNCATE blogful_articles, blogful_users, blogful_comments RESTART IDENTITY CASCADE'))
+
+
 
   describe(`GET /api/articles`, () => {
     context(`Given no articles`, () => {
@@ -50,7 +48,7 @@ describe('Articles Endpoints', function() {
           .then(()=> {
             return db
               .into('blogful_articles')
-              .insert(testUsers)
+              .insert(testArticles)
           })
       }); 
 
@@ -67,7 +65,7 @@ describe('Articles Endpoints', function() {
       beforeEach('insert malicious article', () => {
         return db
           .into("blogful_users")
-          .insert([ testUsers ])
+          .insert(testUsers)
           .then(() => {
             return db
               .into('blogful_articles')
@@ -235,7 +233,7 @@ describe('Articles Endpoints', function() {
 
       beforeEach('insert articles', () => {
         return db
-          .into('blogflul_users')
+          .into('blogful_users')
           .insert(testUsers)
           .then(() => {
             return db
